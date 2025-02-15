@@ -31,11 +31,20 @@ app.post("/portal", (req, res) => {
 });
 
 app.post("/createPost", (req, res) => {
+  const d = new Date(); 
+  const month = (d.getMonth()+1)  + "/";
+  const dDate = d.getDate() + "/"; 
+  const year = d.getFullYear() + " @ ";  
+  const hour = d.getHours() + ":";  
+  const minute = d.getMinutes() + ":"; 
+  const second = d.getSeconds();       // creates date variables for everything in a date
     const post = {
+        date: (dDate + month + year + hour + minute + second),      // combines these dates 
         id: uuidv4(),
         creator: req.body["Creator"],
         content: req.body["Content"],
     };
+    
     posts.push(post);
     console.log(post.id);
     res.redirect("/posts");
@@ -52,6 +61,7 @@ app.post("/edit", (req, res) => {
 
 app.post("/editPost", (req, res) => {
   const editedPost = {
+    date: req.body["date"],
     id: req.body["id"],
     creator: req.body["Creator"],
     content: req.body["Content"],
@@ -67,11 +77,11 @@ app.post("/editPost", (req, res) => {
 
 app.post("/delete", (req, res) => {
   const value = req.body["id"];
-  const postToDelete = posts.find( post => {
-    return post.id === value;
+  const postToDelete = posts.find( post => { // finding a single object in the array of posts. Here, the one that was sent via the delete button w hidden value having its id
+    return post.id === value; // returns the post w the same id as value
   });
   posts = posts.filter(post => {
-    return post !== postToDelete
+    return post !== postToDelete // returns all the objects (post) that are not equal to the one that needs to be deleted
   }); //using filter here to return a whole array. In this case return everything that is not equal to null
   res.redirect("/posts");
 
