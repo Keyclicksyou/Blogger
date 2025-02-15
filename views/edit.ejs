@@ -1,0 +1,12 @@
+<%- include("partials/header.ejs") %>
+
+<div id="do-post">
+    <form action="/editPost" method="POST">
+        <input type="hidden" name="id" value="<%= Package.id %>">
+        <input type="text" name="Creator" value="<%= Package.creator %>" placeholder="Creator of Post..">
+        <input type="text" name="Content" value="<%= Package.content %>" placeholder="Post Content">
+        <input type="submit" value="Edit it!" class="poster-button">
+      </form>
+</div>
+
+<%- include("partials/footer.ejs") %>

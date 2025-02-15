@@ -1,0 +1,32 @@
+<%- include("partials/header.ejs") %>
+
+<div class="blog-container">
+    <% if (locals.Packages && locals.Packages.length > 0) { %>
+        <% Packages.forEach(post => { %> 
+    <div class="post">
+        <h2><%= post.creator %> says...</h2>
+        <p><%= post.content %></p>
+        <p><% const d = new Date(); const e = d.getDate() + "/"
+            + (d.getMonth()+1)  + "/" 
+            + d.getFullYear() + " @ "  
+            + d.getHours() + ":"  
+            + d.getMinutes() + ":" 
+            + d.getSeconds();%> <%= e %></p>
+        <div class="button-pair">
+            <form action="/edit" method="POST">
+                <input type="hidden" name="id" value="<%= post.id %>">
+                <input type="submit" value="Edit">
+            </form>
+
+            <form action="/delete" method="POST">
+                <input type="hidden" name="id" value="<%= post.id %>">
+                <input type="submit" value="Delete">
+            </form>
+        </div>
+    </div>
+       <% }); %>
+    <% } else { %>
+    <h1>Looks empty here.. Start Bloggin'!</h1>
+    <% } %>
+</div>
+<%- include("partials/footer.ejs") %>

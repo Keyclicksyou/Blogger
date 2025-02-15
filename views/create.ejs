@@ -1,0 +1,11 @@
+<%- include("partials/header.ejs") %>
+
+<div id="do-post">
+    <form action="/createPost" method="POST">
+        <input type="text" name="Creator" placeholder="Creator of Post..">
+        <input type="text" name="Content" placeholder="Post Content">
+        <input type="submit" value="Blog it!" class="poster-button">
+      </form>
+</div>
+
+<%- include("partials/footer.ejs") %>
